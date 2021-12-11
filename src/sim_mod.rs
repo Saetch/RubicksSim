@@ -15,6 +15,10 @@ use crate::r_cube_mod::RCube;
                 cube : RCube::new()
             }
         }
+
+        pub fn show_cube_status(&self) -> String{
+            return String::from("Not implemented!");
+        }
     }
 
 

@@ -6,4 +6,6 @@ use crate::sim_mod::Sim as Sim;
 
 fn main() {
     let sim_sim = Sim::new();
+
+    println!("Cube: {}",sim_sim.show_cube_status());
 }
