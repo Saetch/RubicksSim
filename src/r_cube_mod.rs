@@ -72,7 +72,10 @@ use crate::cube_side_mod::RColor as RColor;
 
 
         fn turn_front_left_mut(&mut self, back_flip : bool){
-            return;
+            if back_flip {
+                //let dummy = 
+            }
+
             todo!();
         }
         fn turn_front_right_mut(&mut self, back_flip : bool){
