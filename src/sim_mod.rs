@@ -17,7 +17,7 @@ use crate::r_cube_mod::RCube;
         }
 
         pub fn show_cube_status(&self) -> String{
-            return String::from("Not implemented!");
+            return self.cube.to_string();
         }
     }
 
