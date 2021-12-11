@@ -11,6 +11,16 @@ use crate::cube_side_mod::RColor as RColor;
         right : CubeSide,
         bottom : CubeSide
     }
+
+    pub enum TurnTypes {
+        FrontLeft{ back_flip : bool},
+        FrontRight{ back_flip : bool},
+        LeftSideLeft{ back_flip : bool},
+        LeftSideRight{ back_flip : bool},
+        TopLeft{back_flip: bool},
+        TopRight{back_flip: bool}
+        
+    }
     impl ToString for RCube{
         fn to_string(&self) -> String{
             let mut ret_string : String = String::from("");
@@ -48,6 +58,45 @@ use crate::cube_side_mod::RColor as RColor;
             }
 
         }
+
+        pub fn turn_mut(&mut self, tp : &TurnTypes){
+            match tp {
+                TurnTypes::FrontLeft { back_flip } => self.turn_front_left_mut(*back_flip),
+                TurnTypes::FrontRight { back_flip } => self.turn_front_right_mut(*back_flip),
+                TurnTypes::LeftSideLeft { back_flip } => self.turn_left_left_mut(*back_flip),
+                TurnTypes::LeftSideRight { back_flip } => self.turn_left_right_mut(*back_flip),
+                TurnTypes::TopLeft { back_flip } => self.turn_top_left_mut(*back_flip),
+                TurnTypes::TopRight { back_flip } => self.turn_top_right_mut(*back_flip),
+            }
+        }
+
+
+        fn turn_front_left_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+        fn turn_front_right_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+
+        fn turn_left_left_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+        fn turn_left_right_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+        fn turn_top_left_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+        fn turn_top_right_mut(&mut self, back_flip : bool){
+            return;
+            todo!();
+        }
+
 
     }
 
