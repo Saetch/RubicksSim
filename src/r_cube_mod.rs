@@ -148,6 +148,20 @@ use crate::cube_side_mod::RColor as RColor;
             self.front.is_solved() && self.left.is_solved() && self.back.is_solved() && self.right.is_solved() && self.top.is_solved() &&  self.bottom.is_solved()
         }
 
+        pub fn get_solved_amount(&self)-> u8{
+            let mut count : u8 = 0 as u8;
+            
+
+            let top_solved = self.top.get_solved();
+            let front_solved = self.front.get_solved();
+            let left_solved = self.left.get_solved();
+            let right_solved = self.right.get_solved();
+            let bottom_solved = self.bottom.get_solved();
+            let back_solved = self.back.get_solved();
+
+            return count;
+        }
+
 
     }
 
