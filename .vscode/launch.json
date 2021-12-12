@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rubicks_sim'",
+            "name": "Debug executable 'rubiks_sim'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=rubicks_sim",
-                    "--package=rubicks_sim"
+                    "--bin=rubiks_sim",
+                    "--package=rubiks_sim"
                 ],
                 "filter": {
-                    "name": "rubicks_sim",
+                    "name": "rubiks_sim",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rubicks_sim'",
+            "name": "Debug unit tests in executable 'rubiks_sim'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=rubicks_sim",
-                    "--package=rubicks_sim"
+                    "--bin=rubiks_sim",
+                    "--package=rubiks_sim"
                 ],
                 "filter": {
-                    "name": "rubicks_sim",
+                    "name": "rubiks_sim",
                     "kind": "bin"
                 }
             },

@@ -1,12 +1,11 @@
 
-use std::default;
 
 use rand::Rng;
 use crate::r_cube_mod::{RCube as RCube, TurnTypes};
 
         pub struct  Sim{
         
-        cube : RCube,
+        pub cube : RCube,
 
 
     }
@@ -32,8 +31,8 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
                     1 => dir = TurnTypes::FrontRight{ back_flip: true},
                     2 => dir = TurnTypes::LeftSideLeft{back_flip:true},
                     3 => dir = TurnTypes::LeftSideRight{back_flip:true},   
-                    4 => dir = TurnTypes::TopLeft{back_flip:true},
-                    5 => dir = TurnTypes::TopRight{back_flip:true},
+                    4 => dir = TurnTypes::TopPlatform{back_flip:true},
+                    5 => dir = TurnTypes::BottomPlatform{back_flip:true},
                     _ => dir = TurnTypes::FrontLeft{back_flip:false}
                     
                 }
@@ -51,13 +50,17 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
                         TurnTypes::FrontRight { back_flip: _ } =>  println!("FRONTRIGHT"),
                         TurnTypes::LeftSideLeft { back_flip: _ } =>  println!("LEFTLEFT"),
                         TurnTypes::LeftSideRight { back_flip: _ } =>  println!("LEFTRIGHT"),
-                        TurnTypes::TopLeft { back_flip: _ } =>  println!("TOPLEFT"),
-                        TurnTypes::TopRight { back_flip : _ } => println!("TOPRIGHT"),
+                        TurnTypes::TopPlatform { back_flip: _ } =>  println!("TOPLEFT"),
+                        TurnTypes::BottomPlatform { back_flip : _ } => println!("TOPRIGHT"),
                     }
                     self.cube.turn_mut(&dir);
                 }
                 
             }
+        }
+
+        pub fn turn_mut_pip(&mut self, ty : &TurnTypes){
+            self.cube.turn_mut(&ty);
         }
     }
 

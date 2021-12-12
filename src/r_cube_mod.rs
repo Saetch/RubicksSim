@@ -2,7 +2,7 @@ use std::ops::Add;
 
 use crate::cube_side_mod::CubeSide as CubeSide;
 use crate::cube_side_mod::RColor as RColor;
-    //for a rubick's Cube current state
+    //for a rubik's Cube current state
     pub struct RCube{
         top : CubeSide,
         front : CubeSide,
@@ -17,10 +17,24 @@ use crate::cube_side_mod::RColor as RColor;
         FrontRight{ back_flip : bool},
         LeftSideLeft{ back_flip : bool},
         LeftSideRight{ back_flip : bool},
-        TopLeft{back_flip: bool},
-        TopRight{back_flip: bool}
+        TopPlatform{back_flip: bool},
+        BottomPlatform{back_flip: bool}
         
     }
+
+    impl TurnTypes{
+        pub fn switch_direction(&self) -> TurnTypes{
+            match self {
+                TurnTypes::FrontLeft { back_flip } => TurnTypes::FrontLeft { back_flip : !*back_flip },
+                TurnTypes::FrontRight { back_flip } => TurnTypes::FrontRight { back_flip : !*back_flip },
+                TurnTypes::LeftSideLeft { back_flip } => TurnTypes::LeftSideLeft { back_flip : !*back_flip },
+                TurnTypes::LeftSideRight { back_flip } => TurnTypes::LeftSideRight { back_flip: !*back_flip  },
+                TurnTypes::TopPlatform { back_flip } => TurnTypes::TopPlatform { back_flip: !*back_flip  },
+                TurnTypes::BottomPlatform { back_flip } => TurnTypes::BottomPlatform { back_flip: !*back_flip  },
+            }
+        }
+    }
+
     impl ToString for RCube{
         fn to_string(&self) -> String{
             let mut ret_string : String = String::from("");
@@ -65,42 +79,79 @@ use crate::cube_side_mod::RColor as RColor;
                 TurnTypes::FrontRight { back_flip } => self.turn_front_right_mut(*back_flip),
                 TurnTypes::LeftSideLeft { back_flip } => self.turn_left_left_mut(*back_flip),
                 TurnTypes::LeftSideRight { back_flip } => self.turn_left_right_mut(*back_flip),
-                TurnTypes::TopLeft { back_flip } => self.turn_top_left_mut(*back_flip),
-                TurnTypes::TopRight { back_flip } => self.turn_top_right_mut(*back_flip),
+                TurnTypes::TopPlatform { back_flip } => self.turn_top_platform_mut(*back_flip),
+                TurnTypes::BottomPlatform { back_flip } => self.turn_bottom_platform_mut(*back_flip),
             }
         }
 
 
         fn turn_front_left_mut(&mut self, back_flip : bool){
             if back_flip {
-                //let dummy = 
+                self.front.set_left_mut(&self.bottom.set_left_mut(&self.back.set_left_mut(&self.top.set_left_mut(&self.front.get_left())))); 
+                self.left.rotateLeft();
+            }
+            else{
+                self.front.set_left_mut(&self.top.set_left_mut(&self.back.set_left_mut(&self.bottom.set_left_mut(&self.front.get_left()))));
+                self.left.rotateRight();
             }
 
-            todo!();
+            
         }
         fn turn_front_right_mut(&mut self, back_flip : bool){
-            return;
-            todo!();
+            if back_flip{
+                self.front.set_right_mut(&self.bottom.set_right_mut(&self.back.set_right_mut(&self.top.set_right_mut(&self.front.get_right()))));
+                self.right.rotateRight();
+            }else{
+                self.front.set_right_mut(&self.top.set_right_mut(&self.back.set_right_mut(&self.bottom.set_right_mut(&self.front.get_right()))));
+                self.right.rotateLeft();
+            }
         }
 
         fn turn_left_left_mut(&mut self, back_flip : bool){
-            return;
-            todo!();
+            if back_flip{
+                self.left.set_left_mut(&self.bottom.set_bot_mut(&turn_array(&self.right.set_right_mut(&self.top.set_top_mut(&turn_array(&self.left.get_left()))))));
+                self.back.rotateLeft();
+            }else{
+                self.left.set_left_mut(&self.top.set_top_mut(&turn_array(&self.right.set_right_mut(&self.bottom.set_bot_mut(&turn_array(&self.left.get_left()))))));
+                self.back.rotateRight();
+            }
         }
         fn turn_left_right_mut(&mut self, back_flip : bool){
-            return;
-            todo!();
+            if back_flip{
+                self.left.set_right_mut(&self.bottom.set_top_mut(&turn_array(&self.right.set_left_mut(&self.top.set_bot_mut(&turn_array(&self.left.get_right()))))));
+                self.front.rotateRight();
+            }else{
+                self.left.set_right_mut(&self.top.set_bot_mut(&turn_array(&self.right.set_left_mut(&self.bottom.set_top_mut(&turn_array(&self.left.get_right()))))));
+                self.front.rotateLeft();
+            }
         }
-        fn turn_top_left_mut(&mut self, back_flip : bool){
-            return;
-            todo!();
+        fn turn_top_platform_mut(&mut self, back_flip : bool){
+            if back_flip{
+                self.front.set_top_mut(&self.right.set_top_mut(&turn_array(&self.back.set_bot_mut(&turn_array(&self.left.set_top_mut(&self.front.get_top()))))));
+                self.top.rotateRight();
+            }else{
+                self.front.set_top_mut(&self.left.set_top_mut(&turn_array(&self.back.set_bot_mut(&turn_array(&self.right.set_top_mut(&self.front.get_top()))))));
+                self.top.rotateLeft();
+            }
         }
-        fn turn_top_right_mut(&mut self, back_flip : bool){
-            return;
-            todo!();
+        fn turn_bottom_platform_mut(&mut self, back_flip : bool){
+            if back_flip{
+                self.front.set_bot_mut(&self.right.set_bot_mut(&turn_array(&self.back.set_top_mut(&turn_array(&self.left.set_bot_mut(&self.front.get_bot()))))));
+                self.bottom.rotateLeft();
+            }else{
+                self.front.set_bot_mut(&self.left.set_bot_mut(&turn_array(&self.back.set_top_mut(&turn_array(&self.right.set_bot_mut(&self.front.get_bot()))))));
+                self.bottom.rotateRight();
+            }
         }
 
 
+    }
+
+    fn turn_array( arr : &[RColor; 3]) -> [RColor;3]{
+        let mut retete = arr.clone();
+        retete[0] = arr[2];
+        retete[2] = arr[0];
+        return retete;
     }
 
 

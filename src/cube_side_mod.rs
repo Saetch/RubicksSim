@@ -1,6 +1,9 @@
 use core::fmt;
 use std::ops::Add;
 
+use ansi_term::Colour::*;
+
+
     #[derive(Copy, Clone)]
     pub enum RColor {
         White,
@@ -40,8 +43,6 @@ use std::ops::Add;
             };
             for i in 0..=8{
                 ret.stones[i] = input;
-
-                println!("Coloring stone {}{}", &i, input);
             }
             return ret;
 
@@ -54,14 +55,18 @@ use std::ops::Add;
             let mut ret_string = String::new();
             let mut counter = 0;
             for st in self.stones{
-                ret_string = ret_string.add(counter.to_string().add(" : ").as_str());
+                ret_string = ret_string.add(&color_stone(&st));
                 counter +=1;
-                ret_string = ret_string.add(st.to_string().add("\n").as_str());
+                if counter % 3 == 0 {
+                    ret_string = ret_string.add("\n");
+                }
             }
 
             return ret_string;
             
         }
+
+        
 
         
 
@@ -73,11 +78,7 @@ use std::ops::Add;
             }            
             return retete;
         }
-        pub fn force_left_mut(&mut self, cl : [RColor;3]){
-            for i in 0..3{
-                self.stones[i*3] = cl[i];
-            }            
-        }
+
         
 
         pub fn set_right_mut(&mut self, cl : &[RColor;3]) -> [RColor;3]{
@@ -89,11 +90,7 @@ use std::ops::Add;
             }      
             return retete;      
         }
-        pub fn force_right_mut(&mut self, cl : [RColor;3]){
-            for i in 0..3{
-                self.stones[2+i*3] = cl[i];
-            }            
-        }
+
     
         pub fn get_left(&self) -> [RColor;3]{
             let mut retete = [RColor::Blue; 3];
@@ -111,7 +108,7 @@ use std::ops::Add;
             return retete;
         }
 
-        pub fn set_top_mut(&mut self, cl :[RColor; 3]) -> [RColor;3]{
+        pub fn set_top_mut(&mut self, cl :&[RColor; 3]) -> [RColor;3]{
             let mut retete = [RColor::Blue;3];
             for i in 0..cl.len(){
                 retete[i] = self.stones[i];
@@ -120,26 +117,17 @@ use std::ops::Add;
             return retete;
         }
 
-        pub fn force_top_mut(&mut self, cl : [RColor;3]){
-            for i in 0..3{
-                self.stones[i] = cl[i];
-            }            
-        }
 
-        pub fn set_bot_mut(&mut self, cl : [RColor; 3]) -> [RColor;3]{
+        pub fn set_bot_mut(&mut self, cl : &[RColor; 3]) -> [RColor;3]{
             let mut retete = [RColor::Blue;3];
             for i in 0..cl.len(){
                 retete[i] = self.stones[6+i];
-                self.stones[6+1] = cl[i];
+                self.stones[6+i] = cl[i];
             }
             return retete;
         }
 
-        pub fn force_bot_mut(&mut self, cl : [RColor;3]){
-            for i in 0..3{
-                self.stones[6+i] = cl[i];
-            }            
-        }
+
 
         pub fn get_top(&self)-> [RColor;3]{
             let mut retete = [RColor::Blue;3];
@@ -158,7 +146,46 @@ use std::ops::Add;
         }
 
 
+        pub fn rotateLeft(&mut self){
+            //start with corners
+            let mut dum = self.stones[2];
+            self.stones[2] = self.stones[8];
+            self.stones[8] = self.stones[6];
+            self.stones[6] = self.stones[0];
+            self.stones[0] = dum;
 
+            dum = self.stones[3];
+            self.stones[3] = self.stones[1];
+            self.stones[1] = self.stones[5];
+            self.stones[5] = self.stones[7];
+            self.stones[7] = dum;
+        }
 
+        pub fn rotateRight(&mut self){
+             //start with corners
+             let dum = self.stones[2];
+             self.stones[2] = self.stones[0];
+             self.stones[0] = self.stones[6];
+             self.stones[6] = self.stones[8];
+             self.stones[8] = dum;
+
+             //continue with the other ones
+             let dum = self.stones[5];
+             self.stones[5] = self.stones[1];
+             self.stones[1] = self.stones[3];
+             self.stones[3] = self.stones[7];
+             self.stones[7] = dum;
+        }
+    }
+
+    fn color_stone( i : &RColor) -> String{
+        match i{
+            RColor::White => Black.on(White).paint("[ ]").to_string(),
+            RColor::Yellow => Black.on(Yellow).paint("[ ]").to_string(),
+            RColor::Red => Black.on(Red).paint("[ ]").to_string(),
+            RColor::Blue => Black.on(Blue).paint("[ ]").to_string(),
+            RColor::Orange => Black.on(RGB(0xFF, 0x88, 0x00)).paint("[ ]").to_string(),
+            RColor::Green => Black.on(Green).paint("[ ]").to_string(),
+        }
     }
 

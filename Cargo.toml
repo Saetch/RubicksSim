@@ -1,5 +1,5 @@
 [package]
-name = "rubicks_sim"
+name = "rubiks_sim"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rand = "0.8.4"
+ansi_term = "0.12"
