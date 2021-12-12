@@ -202,7 +202,7 @@ use ansi_term::Colour::*;
                     _ => ()
                 }
             }
-            return retete.iter().filter(|x| *x == (4.try_into().unwrap())).cloned().collect();
+            return retete.into_iter().filter(|x| *x == 4 as u8).cloned().collect();
         }
     }
 
