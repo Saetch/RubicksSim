@@ -18,7 +18,7 @@ fn main() {
            let mut sim_sim = Sim::new();
     assert!(sim_sim.is_solved());
 
-    for _i in 0..2{
+    for _i in 0..100{
         let mut ne = TurnTypes::BottomPlatform{back_flip:true};
         match rand.gen::<u8>() % 6{
             0 => ne =TurnTypes::FrontLeft{ back_flip : rand.gen::<u8>()%2 == 0},
@@ -31,14 +31,14 @@ fn main() {
             _ => {println!("Something went wrong!"); return;}
         }
         sim_sim.turn_mut_pip(&ne);  
-        match &ne{
+     /*   match &ne{
             TurnTypes::FrontLeft { back_flip } => println!("FRONTLEFT+{}",back_flip),
             TurnTypes::FrontRight { back_flip} =>  println!("FRONTRIGHT+{}",back_flip),
             TurnTypes::LeftSideLeft { back_flip } =>  println!("LEFTLEFT+{}",back_flip),
             TurnTypes::LeftSideRight { back_flip } =>  println!("LEFTRIGHT+{}",back_flip),
             TurnTypes::TopPlatform { back_flip } =>  println!("TOPLEFT+{}",back_flip),
             TurnTypes::BottomPlatform { back_flip  } => println!("TOPRIGHT+{}",back_flip),
-        }
+        }*/
         //println!("new Cube: \n{}",sim_sim.show_cube_status());
 
         vec.push(ne);
@@ -48,6 +48,7 @@ fn main() {
     let mut turn_type;
     while turn_type_o.is_some(){
         turn_type = turn_type_o.unwrap();
+        /*
         match &(turn_type.switch_direction()){
             TurnTypes::FrontLeft { back_flip } => println!("FRONTLEFT+{}",back_flip),
             TurnTypes::FrontRight { back_flip} =>  println!("FRONTRIGHT+{}",back_flip),
@@ -55,9 +56,12 @@ fn main() {
             TurnTypes::LeftSideRight { back_flip } =>  println!("LEFTRIGHT+{}",back_flip),
             TurnTypes::TopPlatform { back_flip } =>  println!("TOPLEFT+{}",back_flip),
             TurnTypes::BottomPlatform { back_flip  } => println!("TOPRIGHT+{}",back_flip),
-        }
+        }*/
         sim_sim.turn_mut_pip(&turn_type.switch_direction());
-        //println!("new Cube: \n{}",sim_sim.show_cube_status());
+        if i == 500{
+            println!("new Cube: \n{}",sim_sim.show_cube_status());
+
+        }
 
         turn_type_o = vec.pop();
 
