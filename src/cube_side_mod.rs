@@ -192,6 +192,18 @@ use ansi_term::Colour::*;
              self.stones[3] = self.stones[7];
              self.stones[7] = dum;
         }
+
+        pub fn get_Solved(&self) -> Vec<u8>{
+            let mut retete : Vec<u8> = Vec::new();
+            let _to_check = self.stones[4];
+            for i  in 0..=8{
+                match retete[i] {
+                    _to_check => retete.push(i.try_into().unwrap()),
+                    _ => ()
+                }
+            }
+            return retete.iter().filter(|x| *x == (4.try_into().unwrap())).cloned().collect();
+        }
     }
 
     fn color_stone( i : &RColor) -> String{

@@ -158,17 +158,19 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
                 self.cube.turn_mut(&t_type);
             }
 
-
-
-
-
-
-
-
-
-
-
             return true;
+        }
+
+        pub fn simple_heuristic_solve(&mut self) -> u32{
+            let mut count = 0;
+            let mut vec_moves : Vec<TurnTypes> = Vec::new();
+            //this is so loops can be eliminated
+            let mut vec_states : Vec<TurnTypes> = Vec::new();
+
+            
+
+
+            return count;
         }
     }
 

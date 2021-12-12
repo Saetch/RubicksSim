@@ -120,8 +120,15 @@ fn thread_rando_test(){
 fn solve_cube_with_heuristic(){
 
     let mut sim_sim = Sim::new();
-    sim_sim.default_cube();
-    println!("new Cube: \n{}",sim_sim.show_cube_status());
+    if sim_sim.default_cube(){
+        println!("new Cube: \n{}",sim_sim.show_cube_status());
+
+
+       let amount =  sim_sim.simple_heuristic_solve();
+    }
+    else{
+        println!("Cube not solved when trying to initialize!");
+    }
 
 
 }
