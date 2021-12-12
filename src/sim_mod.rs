@@ -62,6 +62,10 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
         pub fn turn_mut_pip(&mut self, ty : &TurnTypes){
             self.cube.turn_mut(&ty);
         }
+
+        pub fn is_solved(&self) -> bool{
+            self.cube.is_solved()
+        }
     }
 
 

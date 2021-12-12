@@ -112,7 +112,7 @@ use crate::cube_side_mod::RColor as RColor;
                 self.left.set_left_mut(&self.bottom.set_bot_mut(&turn_array(&self.right.set_right_mut(&self.top.set_top_mut(&turn_array(&self.left.get_left()))))));
                 self.back.rotateLeft();
             }else{
-                self.left.set_left_mut(&self.top.set_top_mut(&turn_array(&self.right.set_right_mut(&self.bottom.set_bot_mut(&turn_array(&self.left.get_left()))))));
+                self.left.set_left_mut(&turn_array(&self.top.set_top_mut(&self.right.set_right_mut(&turn_array(&self.bottom.set_bot_mut(&self.left.get_left()))))));
                 self.back.rotateRight();
             }
         }
@@ -121,7 +121,7 @@ use crate::cube_side_mod::RColor as RColor;
                 self.left.set_right_mut(&self.bottom.set_top_mut(&turn_array(&self.right.set_left_mut(&self.top.set_bot_mut(&turn_array(&self.left.get_right()))))));
                 self.front.rotateRight();
             }else{
-                self.left.set_right_mut(&self.top.set_bot_mut(&turn_array(&self.right.set_left_mut(&self.bottom.set_top_mut(&turn_array(&self.left.get_right()))))));
+                self.left.set_right_mut(&turn_array(&self.top.set_bot_mut(&self.right.set_left_mut(&turn_array(&self.bottom.set_top_mut(&self.left.get_right()))))));
                 self.front.rotateLeft();
             }
         }
@@ -142,6 +142,10 @@ use crate::cube_side_mod::RColor as RColor;
                 self.front.set_bot_mut(&self.left.set_bot_mut(&turn_array(&self.back.set_top_mut(&turn_array(&self.right.set_bot_mut(&self.front.get_bot()))))));
                 self.bottom.rotateRight();
             }
+        }
+
+        pub fn is_solved(&self)->bool{
+            self.front.is_solved() && self.left.is_solved() && self.back.is_solved() && self.right.is_solved() && self.top.is_solved() &&  self.bottom.is_solved()
         }
 
 

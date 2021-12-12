@@ -4,7 +4,7 @@ use std::ops::Add;
 use ansi_term::Colour::*;
 
 
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, PartialEq, Eq)]
     pub enum RColor {
         White,
         Yellow,
@@ -27,6 +27,8 @@ use ansi_term::Colour::*;
         }
     }
 
+    
+
 
 
 
@@ -34,7 +36,11 @@ use ansi_term::Colour::*;
     pub struct CubeSide{
 
        stones : [RColor; 9]
+
+
     }
+
+
 
     impl CubeSide{
         pub fn new(input: RColor) -> Self{
@@ -46,6 +52,16 @@ use ansi_term::Colour::*;
             }
             return ret;
 
+        }
+
+        pub fn is_solved(&self)-> bool{
+            let cmp = self.stones[0];
+            for st in self.stones{
+                if !(st == cmp){
+                    return false;
+                }
+            }
+            true
         }
     
 
