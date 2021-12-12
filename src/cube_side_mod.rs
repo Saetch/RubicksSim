@@ -162,7 +162,7 @@ use ansi_term::Colour::*;
         }
 
 
-        pub fn rotateLeft(&mut self){
+        pub fn rotate_left(&mut self){
             //start with corners
             let mut dum = self.stones[2];
             self.stones[2] = self.stones[8];
@@ -177,7 +177,7 @@ use ansi_term::Colour::*;
             self.stones[7] = dum;
         }
 
-        pub fn rotateRight(&mut self){
+        pub fn rotate_right(&mut self){
              //start with corners
              let dum = self.stones[2];
              self.stones[2] = self.stones[0];

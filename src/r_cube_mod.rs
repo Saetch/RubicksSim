@@ -88,11 +88,11 @@ use crate::cube_side_mod::RColor as RColor;
         fn turn_front_left_mut(&mut self, back_flip : bool){
             if back_flip {
                 self.front.set_left_mut(&self.bottom.set_left_mut(&self.back.set_left_mut(&self.top.set_left_mut(&self.front.get_left())))); 
-                self.left.rotateLeft();
+                self.left.rotate_left();
             }
             else{
                 self.front.set_left_mut(&self.top.set_left_mut(&self.back.set_left_mut(&self.bottom.set_left_mut(&self.front.get_left()))));
-                self.left.rotateRight();
+                self.left.rotate_right();
             }
 
             
@@ -100,47 +100,47 @@ use crate::cube_side_mod::RColor as RColor;
         fn turn_front_right_mut(&mut self, back_flip : bool){
             if back_flip{
                 self.front.set_right_mut(&self.bottom.set_right_mut(&self.back.set_right_mut(&self.top.set_right_mut(&self.front.get_right()))));
-                self.right.rotateRight();
+                self.right.rotate_right();
             }else{
                 self.front.set_right_mut(&self.top.set_right_mut(&self.back.set_right_mut(&self.bottom.set_right_mut(&self.front.get_right()))));
-                self.right.rotateLeft();
+                self.right.rotate_left();
             }
         }
 
         fn turn_left_left_mut(&mut self, back_flip : bool){
             if back_flip{
                 self.left.set_left_mut(&self.bottom.set_bot_mut(&turn_array(&self.right.set_right_mut(&self.top.set_top_mut(&turn_array(&self.left.get_left()))))));
-                self.back.rotateLeft();
+                self.back.rotate_left();
             }else{
                 self.left.set_left_mut(&turn_array(&self.top.set_top_mut(&self.right.set_right_mut(&turn_array(&self.bottom.set_bot_mut(&self.left.get_left()))))));
-                self.back.rotateRight();
+                self.back.rotate_right();
             }
         }
         fn turn_left_right_mut(&mut self, back_flip : bool){
             if back_flip{
                 self.left.set_right_mut(&self.bottom.set_top_mut(&turn_array(&self.right.set_left_mut(&self.top.set_bot_mut(&turn_array(&self.left.get_right()))))));
-                self.front.rotateRight();
+                self.front.rotate_right();
             }else{
                 self.left.set_right_mut(&turn_array(&self.top.set_bot_mut(&self.right.set_left_mut(&turn_array(&self.bottom.set_top_mut(&self.left.get_right()))))));
-                self.front.rotateLeft();
+                self.front.rotate_left();
             }
         }
         fn turn_top_platform_mut(&mut self, back_flip : bool){
             if back_flip{
                 self.front.set_top_mut(&self.right.set_top_mut(&turn_array(&self.back.set_bot_mut(&turn_array(&self.left.set_top_mut(&self.front.get_top()))))));
-                self.top.rotateRight();
+                self.top.rotate_right();
             }else{
                 self.front.set_top_mut(&self.left.set_top_mut(&turn_array(&self.back.set_bot_mut(&turn_array(&self.right.set_top_mut(&self.front.get_top()))))));
-                self.top.rotateLeft();
+                self.top.rotate_left();
             }
         }
         fn turn_bottom_platform_mut(&mut self, back_flip : bool){
             if back_flip{
                 self.front.set_bot_mut(&self.right.set_bot_mut(&turn_array(&self.back.set_top_mut(&turn_array(&self.left.set_bot_mut(&self.front.get_bot()))))));
-                self.bottom.rotateLeft();
+                self.bottom.rotate_left();
             }else{
                 self.front.set_bot_mut(&self.left.set_bot_mut(&turn_array(&self.back.set_top_mut(&turn_array(&self.right.set_bot_mut(&self.front.get_bot()))))));
-                self.bottom.rotateRight();
+                self.bottom.rotate_right();
             }
         }
 

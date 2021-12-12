@@ -44,15 +44,6 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
 
 
                 for _d in 0..am{
-
-                    match &dir{
-                        TurnTypes::FrontLeft { back_flip: _ } => println!("FRONTLEFT"),
-                        TurnTypes::FrontRight { back_flip: _ } =>  println!("FRONTRIGHT"),
-                        TurnTypes::LeftSideLeft { back_flip: _ } =>  println!("LEFTLEFT"),
-                        TurnTypes::LeftSideRight { back_flip: _ } =>  println!("LEFTRIGHT"),
-                        TurnTypes::TopPlatform { back_flip: _ } =>  println!("TOPLEFT"),
-                        TurnTypes::BottomPlatform { back_flip : _ } => println!("TOPRIGHT"),
-                    }
                     self.cube.turn_mut(&dir);
                 }
                 
@@ -65,6 +56,63 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
 
         pub fn is_solved(&self) -> bool{
             self.cube.is_solved()
+        }
+
+        pub fn random_solve_prnt(&mut self) -> u64{
+            let mut ret = 0;
+            let mut r = rand::thread_rng();
+            while !self.is_solved() {
+                match r.gen::<u8>() %12 {
+                    0 => self.turn_mut_pip(&TurnTypes::FrontLeft{ back_flip : true}),
+                    1 => self.turn_mut_pip(&TurnTypes::FrontLeft{ back_flip : false}),
+                    2 => self.turn_mut_pip(&TurnTypes::LeftSideLeft{ back_flip : true}),
+                    3 => self.turn_mut_pip(&TurnTypes::LeftSideLeft{ back_flip : false}),
+                    4 => self.turn_mut_pip(&TurnTypes::FrontRight{ back_flip : true}),
+                    5 => self.turn_mut_pip(&TurnTypes::FrontRight{ back_flip : false}),
+                    6 => self.turn_mut_pip(&TurnTypes::LeftSideRight{ back_flip : true}),
+                    7 => self.turn_mut_pip(&TurnTypes::LeftSideRight{ back_flip : false}),
+                    8 => self.turn_mut_pip(&TurnTypes::TopPlatform{ back_flip : true}),
+                    9 => self.turn_mut_pip(&TurnTypes::TopPlatform{ back_flip : false}),
+                    10 => self.turn_mut_pip(&TurnTypes::BottomPlatform{ back_flip : true}),
+                    11 => self.turn_mut_pip(&TurnTypes::BottomPlatform{ back_flip : false}),
+
+                    _ => ()
+                }
+
+                ret+=1;
+                if ret % 10000000000 == 0 {
+                    println!("Did {} moves so far!", ret);
+
+                }
+            }
+            return ret;
+        }
+
+        pub fn random_solve(&mut self) -> u128{
+            let mut ret = 0;
+            let mut r = rand::thread_rng();
+            while !self.is_solved() {
+                match r.gen::<u8>() %12 {
+                    0 => self.turn_mut_pip(&TurnTypes::FrontLeft{ back_flip : true}),
+                    1 => self.turn_mut_pip(&TurnTypes::FrontLeft{ back_flip : false}),
+                    2 => self.turn_mut_pip(&TurnTypes::LeftSideLeft{ back_flip : true}),
+                    3 => self.turn_mut_pip(&TurnTypes::LeftSideLeft{ back_flip : false}),
+                    4 => self.turn_mut_pip(&TurnTypes::FrontRight{ back_flip : true}),
+                    5 => self.turn_mut_pip(&TurnTypes::FrontRight{ back_flip : false}),
+                    6 => self.turn_mut_pip(&TurnTypes::LeftSideRight{ back_flip : true}),
+                    7 => self.turn_mut_pip(&TurnTypes::LeftSideRight{ back_flip : false}),
+                    8 => self.turn_mut_pip(&TurnTypes::TopPlatform{ back_flip : true}),
+                    9 => self.turn_mut_pip(&TurnTypes::TopPlatform{ back_flip : false}),
+                    10 => self.turn_mut_pip(&TurnTypes::BottomPlatform{ back_flip : true}),
+                    11 => self.turn_mut_pip(&TurnTypes::BottomPlatform{ back_flip : false}),
+
+                    _ => ()
+                }
+
+                ret+=1;
+
+            }
+            return ret;
         }
     }
 
