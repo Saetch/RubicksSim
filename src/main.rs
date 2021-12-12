@@ -12,12 +12,13 @@ fn main() {
     println!("RES: {}\n",!enabled.err().is_some());
 
     
-    let execution_style = 1;
+    let execution_style = 2;
 
 
     match execution_style {
         0 => just_debug_scramble_unscramble(),
         1 => randomize_test(),
+        2 => solve_cube_with_heuristic(),
         _ => ()
     }
  
@@ -35,7 +36,7 @@ fn just_debug_scramble_unscramble(){
    assert!(sim_sim.is_solved());
 
    for _i in 0..100{
-       let mut ne = TurnTypes::BottomPlatform{back_flip:true};
+       let ne ;
        match rand.gen::<u8>() % 6{
            0 => ne =TurnTypes::FrontLeft{ back_flip : rand.gen::<u8>()%2 == 0},
            1 => ne =TurnTypes::FrontRight{ back_flip : rand.gen::<u8>()%2 == 0},        
@@ -114,4 +115,13 @@ fn thread_rando_test(){
     sim_sim.randomize_cube_mut(145);
 
     println!("This took {} moves!", sim_sim.random_solve());
+}
+
+fn solve_cube_with_heuristic(){
+
+    let mut sim_sim = Sim::new();
+    sim_sim.default_cube();
+    println!("new Cube: \n{}",sim_sim.show_cube_status());
+
+
 }

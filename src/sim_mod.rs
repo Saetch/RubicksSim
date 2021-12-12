@@ -114,6 +114,62 @@ use crate::r_cube_mod::{RCube as RCube, TurnTypes};
             }
             return ret;
         }
+
+        pub fn default_cube(&mut self)->bool{
+            if !self.is_solved(){
+                return false;
+            }
+            let mut vec : Vec::<TurnTypes> = Vec::new();
+            //this is a default scramble according to a rubik's cube rule book
+            vec.push(TurnTypes::BottomPlatform{ back_flip : true});
+            vec.push(TurnTypes::FrontRight{ back_flip : true});
+            vec.push(TurnTypes::FrontLeft{ back_flip : false});
+            vec.push(TurnTypes::LeftSideRight{ back_flip : true});
+            vec.push(TurnTypes::FrontRight{ back_flip : false});
+            vec.push(TurnTypes::FrontLeft{ back_flip : false});
+            vec.push(TurnTypes::TopPlatform{ back_flip : true});
+            vec.push(TurnTypes::TopPlatform{ back_flip : true});
+            vec.push(TurnTypes::LeftSideRight{ back_flip : true});//
+            vec.push(TurnTypes::BottomPlatform{ back_flip : true});
+            vec.push(TurnTypes::BottomPlatform{ back_flip : true});
+            vec.push(TurnTypes::FrontRight{ back_flip : false});
+            vec.push(TurnTypes::FrontLeft{ back_flip : true});
+            vec.push(TurnTypes::FrontLeft{ back_flip : true});
+            vec.push(TurnTypes::LeftSideRight{ back_flip : true});
+            vec.push(TurnTypes::LeftSideRight{ back_flip : true});
+            vec.push(TurnTypes::BottomPlatform{ back_flip : false});
+            vec.push(TurnTypes::FrontRight{ back_flip : true});
+            vec.push(TurnTypes::FrontRight{ back_flip : true});
+            vec.push(TurnTypes::LeftSideLeft{ back_flip : true});
+            vec.push(TurnTypes::LeftSideLeft{ back_flip : true});
+            vec.push(TurnTypes::BottomPlatform{ back_flip : true});
+            vec.push(TurnTypes::BottomPlatform{ back_flip : true});
+            vec.push(TurnTypes::FrontLeft{ back_flip : true});
+            vec.push(TurnTypes::FrontLeft{ back_flip : true});
+            vec.push(TurnTypes::TopPlatform{ back_flip : false});
+            vec.push(TurnTypes::LeftSideLeft{ back_flip : true});
+            vec.push(TurnTypes::LeftSideLeft{ back_flip : true});
+            vec.push(TurnTypes::TopPlatform{ back_flip : false});
+
+
+
+
+            for t_type in vec  {
+                self.cube.turn_mut(&t_type);
+            }
+
+
+
+
+
+
+
+
+
+
+
+            return true;
+        }
     }
 
 

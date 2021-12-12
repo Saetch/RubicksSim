@@ -63,10 +63,10 @@ use crate::cube_side_mod::RColor as RColor;
             Self{
                 
                     top : CubeSide::new(RColor::White),
-                    front : CubeSide::new(RColor::Red),
-                    left : CubeSide::new(RColor::Blue),
-                    back : CubeSide::new(RColor::Orange),
-                    right : CubeSide::new(RColor::Green),
+                    front : CubeSide::new(RColor::Green),
+                    left : CubeSide::new(RColor::Orange),
+                    back : CubeSide::new(RColor::Blue),
+                    right : CubeSide::new(RColor::Red),
                     bottom : CubeSide::new(RColor::Yellow)
                 
             }
