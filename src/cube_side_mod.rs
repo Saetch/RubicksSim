@@ -193,7 +193,7 @@ use ansi_term::Colour::*;
              self.stones[7] = dum;
         }
 
-        pub fn get_Solved(&self) -> Vec<u8>{
+        pub fn get_solved(&self) -> Vec<u8>{
             let mut retete : Vec<u8> = Vec::new();
             let _to_check = self.stones[4];
             for i  in 0..=8{
@@ -202,7 +202,7 @@ use ansi_term::Colour::*;
                     _ => ()
                 }
             }
-            return retete.into_iter().filter(|x| *x == 4 as u8).cloned().collect();
+            return retete.into_iter().filter(|x| *x == 4 as u8).collect();
         }
     }
 
