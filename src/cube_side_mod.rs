@@ -32,10 +32,10 @@ use ansi_term::Colour::*;
 
 
 
-
+#[derive(Clone, Copy)]
     pub struct CubeSide{
 
-       stones : [RColor; 9]
+       pub stones : [RColor; 9]
 
 
     }
@@ -193,13 +193,12 @@ use ansi_term::Colour::*;
              self.stones[7] = dum;
         }
 
-        pub fn get_solved(&self) -> Vec<u8>{
+        pub fn _get_solved(&self) -> Vec<u8>{
             let mut retete : Vec<u8> = Vec::new();
             let _to_check = self.stones[4];
             for i  in 0..=8{
                 match retete[i] {
                     _to_check => retete.push(i.try_into().unwrap()),
-                    _ => ()
                 }
             }
             return retete.into_iter().filter(|x| *x == 4 as u8).collect();
