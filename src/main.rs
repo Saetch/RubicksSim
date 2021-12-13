@@ -12,13 +12,14 @@ fn main() {
     println!("RES: {}\n",!enabled.err().is_some());
 
     
-    let execution_style = 2;
+    let execution_style = 3;
 
 
     match execution_style {
         0 => just_debug_scramble_unscramble(),
         1 => randomize_test(),
         2 => solve_cube_with_heuristic(),
+        3 => step_test(),
         _ => ()
     }
  
@@ -109,12 +110,33 @@ fn randomize_test(){
     io::stdin().read_line(&mut inp).unwrap();
 }
 
+fn step_test(){
+    for i in 0..15{
+        thread::spawn(move || thread_solve_cube_with_steps(21+i as u32));
+    }
+
+
+    let mut sim_sim = Sim::new();
+    sim_sim.default_cube();
+
+    println!("This took{} moves!", sim_sim.solve_with_steps(1));
+    println!("This thread started with {} steps",1);
+}
+
 fn thread_rando_test(){
     println!("Started thread! ");
     let mut sim_sim = Sim::new();
     sim_sim.randomize_cube_mut(145);
 
     println!("This took {} moves!", sim_sim.random_solve());
+}
+
+fn thread_solve_cube_with_steps(steps: u32){
+    let mut sim_sim = Sim::new();
+    sim_sim.default_cube();
+
+    println!("This took{} moves!", sim_sim.solve_with_steps_skip(steps,15));
+    println!("This thread started with {} steps",steps);
 }
 
 fn solve_cube_with_heuristic(){

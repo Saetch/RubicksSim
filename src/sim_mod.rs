@@ -97,6 +97,55 @@ use crate::{r_cube_mod::{RCube as RCube, TurnTypes, }, u,up,d,dp,f,fp,b,bp,l,lp,
             return ret;
         }
 
+        pub fn solve_with_steps_skip(&mut self, steps : u32, skip : u32) -> u32{
+            let start_c = self.cube.clone();
+            let mut tried : u32= 0;
+            let dummy_m = vec![u!(), up!(), d!(), dp!(), f!(), fp!(),b!(),bp!(),l!(),lp!(),r!(), rp!()];
+            let mut max =self.cube.get_solved_amount_top_first();
+            let mut vec_moves : Vec<TurnTypes> = Vec::new();
+            //this is so loops can be eliminated
+            let mut vec_states : Vec<RCube> = vec![self.cube.clone()];
+            //let mut wanted_moves;
+            let mut found ;
+            while !self.is_solved(){
+                    found =false;
+                    //wanted_moves = self.get_moves_favorable(&dummy_m);
+                    for mv in self.get_moves_favorable(&dummy_m){
+                        let hypo_cube = self.cube.hypo_move(mv);
+                        if !vec_states.contains(&hypo_cube)  {
+                            vec_states.push(hypo_cube);
+                            tried +=1;
+                            self.cube=hypo_cube;
+                            found = true;
+                            vec_moves.push(mv);
+                            break;
+                        }
+                    }
+                    if !found || &vec_moves.len()> &(steps as usize){
+                        //println!("Moving 1 step up! Chained {} moves so far!", vec_moves.len());
+                        let du = &vec_moves.pop();
+                        if du.is_none(){
+                            self.cube = start_c;
+                            println!("Going one step deeper. Tried all options with {} steps",steps);
+                            return self.solve_with_steps(steps+skip);
+                        }else{
+                            self.cube.turn_mut(&du.unwrap().switch_direction());
+                        }
+                    }
+                    
+                    if self.cube.get_solved_amount_top_first()> max{
+                        max = self.cube.get_solved_amount_top_first();
+                        println!("max solved parts: {}", max);
+                    }    
+                    tried +=1;                
+            }
+            println!("Tried {} moves in this function call!",tried);
+            return vec_moves.len() as u32;
+        }
+        pub fn solve_with_steps(&mut self, steps : u32) -> u32{
+            return self.solve_with_steps_skip(steps, 1);
+        }
+
         pub fn random_solve(&mut self) -> u128{
             let mut ret = 0;
             let mut max = 0;
@@ -242,7 +291,6 @@ use crate::{r_cube_mod::{RCube as RCube, TurnTypes, }, u,up,d,dp,f,fp,b,bp,l,lp,
                         let du = &vec_moves.pop();
                         if du.is_none(){
                             compare = false;
-                            println!("Reached the start again!");
                         }else{
                             self.cube.turn_mut(&du.unwrap().switch_direction());
                         }
