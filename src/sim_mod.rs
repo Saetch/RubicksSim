@@ -132,7 +132,7 @@ use crate::{r_cube_mod::{RCube as RCube, TurnTypes, }, u,up,d,dp,f,fp,b,bp,l,lp,
                             self.cube.turn_mut(&du.unwrap().switch_direction());
                         }
                     }
-                    
+
                     if self.cube.get_solved_amount_top_first()> max{
                         max = self.cube.get_solved_amount_top_first();
                         println!("max solved parts: {}", max);
@@ -252,7 +252,6 @@ use crate::{r_cube_mod::{RCube as RCube, TurnTypes, }, u,up,d,dp,f,fp,b,bp,l,lp,
         }
 
         pub fn simple_heuristic_solve(&mut self) -> u32{
-            let mut tried : u32= 0;
             let dummy_m = vec![u!(), up!(), d!(), dp!(), f!(), fp!(),b!(),bp!(),l!(),lp!(),r!(), rp!()];
             let mut max =self.cube.get_solved_amount_top_first();
             let mut vec_moves : Vec<TurnTypes> = Vec::new();
@@ -272,7 +271,6 @@ use crate::{r_cube_mod::{RCube as RCube, TurnTypes, }, u,up,d,dp,f,fp,b,bp,l,lp,
                         if !vec_states.contains(&hypo_cube) && hypo_cube.get_solved_amount_top_first() >= search_heur_val{
                             vec_states.push(hypo_cube);
                             compare=true;
-                            tried +=1;
                             self.cube=hypo_cube;
                             found = true;
                             vec_moves.push(mv);

@@ -1,5 +1,4 @@
 use std::ops::Add;
-use std::panic::set_hook;
 
 use crate::cube_side_mod::CubeSide as CubeSide;
 use crate::cube_side_mod::RColor as RColor;
